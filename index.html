@@ -321,8 +321,7 @@ header {
       color: var(--rose);
       border: 2px solid var(--rose);
       box-shadow: 0 8px 32px rgba(178,64,96,0.13);
-      transform: scale(1.08);
-}
+    }
     .slider-arrow.left { left: 12px; }
     .slider-arrow.right { right: 12px; }
     .slider-img {
@@ -340,13 +339,13 @@ header {
       opacity: 0;
       z-index: 1;
       pointer-events: none;
-      transition: opacity 0.7s cubic-bezier(.77,0,.175,1);
+      transition: opacity 0.35s cubic-bezier(.77,0,.175,1);
     }
     .slider-img.active {
       opacity: 1;
       z-index: 2;
       pointer-events: auto;
-      animation: fadeIn 0.7s cubic-bezier(.77,0,.175,1);
+      animation: fadeIn 0.35s cubic-bezier(.77,0,.175,1);
     }
     .slider-dots {
       position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -768,7 +767,6 @@ header {
         <img src="https://i.postimg.cc/L6YtXqRJ/505189859-1124542789697088-2276860014764962200-n.jpg" alt="Slide 2" class="slider-img" />
         <img src="https://i.postimg.cc/nhKQjBWh/504935489-2477129755972064-6432430428670200337-n.jpg" alt="Slide 3" class="slider-img" />
         <img src="https://i.postimg.cc/Bb1jqKDs/504407941-2477129775972062-4570756569178418137-n.jpg" alt="Slide 4" class="slider-img" />
-        <img src="https://i.postimg.cc/zfVbd6BV/503411898-23881150968163743-1607610554899647775-n.jpg" alt="Slide 5" class="slider-img" />
         <img src="https://i.postimg.cc/s2hfGrx9/503485816-23896223823323124-7124551829005975839-n.jpg" alt="Slide 6" class="slider-img" />
         <img src="https://i.postimg.cc/7ZznB5QF/508012645-23895910650028748-5374261132610574698-n.jpg" alt="Slide 7" class="slider-img" />
         <img src="https://i.postimg.cc/13kxZKcC/518311798-24124635453822932-1679221572965788087-n.jpg" alt="Slide 8" class="slider-img" />
@@ -1579,6 +1577,7 @@ header {
         team_bubble: "Our Team",
         catalog_title: "Catalog",
         catalog_subtitle: "Browse our collection by alphabet.",
+        catalog_no_items: "No items for this letter.",
         catalog_go_back: "Go Back",
         adr_title: "ADR\nCertified\nRoses",
         adr_subtitle: "Discover our selection of ADR certified roses.",
@@ -1614,6 +1613,8 @@ header {
         contact_message: "Message",
         contact_send: "Send",
         footer_contact: "Contact:",
+        footer_phone: "Phone:",
+        footer_email: "Email:",
         footer_copyright: "© 2025 EduGarden. All rights reserved. | Social Entrepreneurship for a Sustainable Future"
       },
       ge: {
@@ -1640,6 +1641,7 @@ header {
         team_bubble: "ჩვენი გუნდი",
         catalog_title: "კატალოგი",
         catalog_subtitle: "დაათვალიერეთ ჩვენი კოლექცია ანბანის მიხედვით.",
+        catalog_no_items: "ამ ასოზე ჩანაწერები არ არის.",
         catalog_go_back: "უკან დაბრუნება",
         adr_title: "ADR\nსერტიფიცირებული\nვარდები",
         adr_subtitle: "ADR (Allgemeine Deutsche Rosenneuheitenprüfung) არის გერმანული ვარდების სერტიფიცირების სისტემა, რომელიც უზრუნველყოფს ვარდების უმაღლეს სტანდარტებს დაავადებების მიმართ გამძლეობაში, ზამთრის გამძლეობასა და ბაღის საერთო ხარისხში. ვარდები რამდენიმე წლის განმავლობაში ტარდება სპეციალურ ექსპერიმენტულ ველებზე, სადაც ისინი უვლიან ქიმიკატების გარეშე და ვადაზე ადრე ავადმყოფობის გარეშე უნდა გაწვდონ. მხოლოდ ის ჯიშები იღებენ ADR სერტიფიკატს, რომლებიც კარგად ვითარდებიან სხვადასხვა კლიმატურ პირობებში და ადვილად მზარდია. ADR ვარდები იდეალურია როგორც პროფესიონალ ბაღპანელებისთვის, ასევე საყოფაცხოვრებო მებაღეებისთვის, რადგან მათ არ სჭირდებათ მუდმივი ქიმიური დამუშავება და სარგებლობენ მდგრადობით, რაც ხარისხიან და დიდხანსყვავილებ ვარდებს უზრუნველყოფს. ეს ჯიშები არა მხოლოდ ვიზუალურად სთავაზობენ გამორჩეულ სილამაზეს, არამედ ამცირებენ ბაღის მოვლის დროს და ხარჯებს.",
@@ -1676,7 +1678,8 @@ header {
         footer_contact: "კონტაქტი:",
         footer_phone: "ტელეფონი:",
         footer_email: "ელ.ფოსტა:",
-        footer_copyright: "© 2025 EduGarden. ყველა უფლება დაცულია. | სოციალური მეწარმეობა მდგრადი მომავლისთვის"
+        footer_copyright: "© 2025 EduGarden. ყველა უფლება დაცულია. | სოციალური მეწარმეობა მდგრადი მომავლისთვის",
+        catalog_no_items: "ამ ასოზე ჩანაწერები არ არის."
       }
     };
     let currentLang = 'ge';
@@ -1707,7 +1710,7 @@ header {
     }
     function resetSliderTimer() {
       if (sliderTimer) clearInterval(sliderTimer);
-      sliderTimer = setInterval(() => sliderNext(), 4000);
+      sliderTimer = setInterval(() => sliderNext(), 8000);
     }
     function setupSliderDots() {
       sliderDotsContainer.innerHTML = '';
@@ -1791,7 +1794,7 @@ header {
         btn.className = 'catalog-btn';
         btn.textContent = letter;
         btn.onclick = () => {
-          sectionDiv.innerHTML = `<button class='go-back-btn' onclick='setupCatalogAlphabet()'>${translations[currentLang]['catalog_go_back'] || translations['en']['catalog_go_back']}</button><div style='margin-top:16px;font-size:1.2rem;font-weight:600;color:var(--rose);'>${letter}</div><div style='margin-top:8px;color:#444;'>No items for this letter.</div>`;
+          sectionDiv.innerHTML = `<button class='go-back-btn' onclick='setupCatalogAlphabet()'>${translations[currentLang]['catalog_go_back'] || translations['en']['catalog_go_back']}</button><div style='margin-top:16px;font-size:1.2rem;font-weight:600;color:var(--rose);'>${letter}</div><div style='margin-top:8px;color:#444;'>${translations[currentLang]['catalog_no_items'] || translations['en']['catalog_no_items']}</div>`;
           alphaDiv.innerHTML = '';
           sectionDiv.classList.remove('hidden');
         };
